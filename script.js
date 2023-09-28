@@ -11,6 +11,31 @@ function convertToRoman(num) {
 
   //your code here
 
+	  let result = '';
+    let i = 0;
+
+    while (num > 0) {
+        const [roman, value] = obj[i];
+
+        if (num >= value) {
+            result += roman;
+            num -= value;
+        } else {
+            // Handle subtraction cases (e.g., 4, 9, 40, 90, etc.)
+            const nextI = i + (i % 2 === 0 ? 2 : 1); // Move to the next valid index
+            const [nextRoman, nextValue] = obj[nextI];
+
+            if (num + nextValue >= value) {
+                result += nextRoman + roman;
+                num -= (value - nextValue);
+            } else {
+                i++;
+            }
+        }
+    }
+
+    return result;
+
 }
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
 
